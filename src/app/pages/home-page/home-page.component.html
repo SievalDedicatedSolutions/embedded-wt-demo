@@ -1,0 +1,54 @@
+<mat-card *ngIf="!token; else data;">
+    <mat-card-title>Login</mat-card-title>
+
+    <mat-card-content>
+        <mat-form-field>
+            <input matInput
+                   [(ngModel)]="model.domainName"
+                   placeholder="Company" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput
+                   [(ngModel)]="model.username"
+                   placeholder="Username" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput
+                   type="password"
+                   [(ngModel)]="model.password"
+                   placeholder="Password" />
+        </mat-form-field>
+
+        <button mat-raised-button
+                [disabled]="!model.domainName || !model.username || !model.password || isLoading"
+                (click)="onLogin()"
+                color="accent">
+            LOGIN
+            <mat-progress-bar *ngIf="isLoading"
+                              mode="indeterminate">
+            </mat-progress-bar>
+        </button>
+    </mat-card-content>
+</mat-card>
+
+<ng-template #data>
+    <mat-card>
+        <mat-card-content>
+            <button (click)="onEdit()"
+                    mat-raised-button
+                    color="accent">
+                EDIT
+            </button>
+
+            <mat-list *ngIf="project">
+                <mat-list-item *ngFor="let polygon of project.polygons">
+                    <p matLine>Product: {{polygon.modelDescription}}</p>
+                    <p matLine>Width: {{polygon.width}}cm</p>
+                    <p matLine>Height: {{polygon.height}}cm</p>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+</ng-template>
